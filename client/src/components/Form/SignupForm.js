@@ -26,9 +26,10 @@ class SignupForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='username'
+          name='email'
           component={FormField}
-          label='Username'
+          label='Email'
+          type='email'
         />
         <Field
           name='password'
@@ -41,22 +42,6 @@ class SignupForm extends Component {
           component={FormField}
           label='Retype Password'
           type='password'
-        />
-        <Field
-          name='email'
-          component={FormField}
-          label='Email'
-          type='email'
-        />
-        <Field
-          name='firstname'
-          component={FormField}
-          label='Firstname'
-        />
-        <Field
-          name='lastname'
-          component={FormField}
-          label='Lastname'
         />
         <button
           type='submit'
@@ -72,20 +57,11 @@ class SignupForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.username) {
-    errors.username = 'Username Required!'
-  }
-  if (!value.password) {
-    errors.password = 'Password Required!'
-  }
   if (!value.email) {
     errors.email = 'Email Required!'
   }
-  if (!value.firstname) {
-    errors.firstname = 'Firstname Required!'
-  }
-  if (!value.lastname) {
-    errors.lastname = 'Lastname Required!'
+  if (!value.password) {
+    errors.password = 'Password Required!'
   }
   if (value.password !== value.passwordRe) {
     errors.passwordRe = 'Password must match!'
@@ -97,6 +73,6 @@ export default withRouter(
   reduxForm({
     validate,
     asyncValidate,
-    asyncChangeFields: ['username'],
+    asyncChangeFields: ['email'],
     form: 'value'
   })(connect(null, { addNewUsers })(SignupForm)));
