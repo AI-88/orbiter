@@ -5,8 +5,8 @@ import debounce from 'debounce-promise';
 const asyncValidate = async values => {
   const request = await axios.get('/api/users');
   const { data } = request;
-  if (_.map(data).find(user => user.username === values.username)) {
-    throw { username: 'Username is already taken'};
+  if (_.map(data).find(user => user.email === values.email)) {
+    throw { email: 'Email already exists!'};
   }
 };
 
