@@ -15,10 +15,10 @@ module.exports = app => {
       password,
       returnSecureToken: true
     }).then(response => {
-      console.log('line 18: ', response);
+      res.send(response);
     }).catch(error => {
-      const { response: { status, statusText }} = error;
-      console.log(`Error ${status}: ${statusText}`);
+      const { response: { status }} = error;
+      res.sendStatus(status);
     });
   });
 };

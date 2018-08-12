@@ -17,9 +17,13 @@ const receiveNewUsersRegistration = request => ({
   payload: request
 });
 
-export const addNewUsers = (values, callback) => async dispatch => {
+export const addNewUsers = (values, callback) => dispatch => {
   dispatch(requestNewUsersRegistration());
-  const request = await axios.post('/api/users', values);
+  const request = axios.post('/api/users', values).then(response => {
+    console.log(response);
+  }).catch(error => {
+    console.log(error);
+  });
   dispatch(receiveNewUsersRegistration(request));
   callback();
 };
