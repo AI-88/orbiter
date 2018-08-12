@@ -14,7 +14,7 @@ function addNewUsersReducer(state = INITIAL_STATE, action) {
     case RECEIVE_NEW_USERS_REGISTRATION:
       return {
         ...state,
-        isCreated: action.payload
+        isCreated: true
       };
     default:
       return state;

@@ -12,18 +12,16 @@ const requestNewUsersRegistration = () => ({
   payload: false
 });
 
-const receiveNewUsersRegistration = () => ({
+const receiveNewUsersRegistration = request => ({
   type: types.RECEIVE_NEW_USERS_REGISTRATION,
-  payload: true
+  payload: request
 });
 
 export const addNewUsers = (values, callback) => async dispatch => {
   dispatch(requestNewUsersRegistration());
   const request = await axios.post('/api/users', values);
-  if (request.status === 200) {
-    dispatch(receiveNewUsersRegistration());
-    callback();
-  }
+  dispatch(receiveNewUsersRegistration(request));
+  callback();
 };
 
 export const resetNewUsersRegistration = () => ({

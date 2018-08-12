@@ -8,14 +8,16 @@ module.exports = app => {
     res.send(data);
   });
 
-  app.post('/api/users', async (req, res) => {
+  app.post('/api/users', (req, res) => {
     const { email, password } = req.body;
-    const request = await axios.post(keys.userSignupURL, {
+    const request = axios.post(keys.userSignupURL, {
       email,
       password,
       returnSecureToken: true
+    }).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
     });
-    const { data } = request;
-    res.send(data);
   });
 };
