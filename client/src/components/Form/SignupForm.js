@@ -72,7 +72,7 @@ function validate(value) {
 export default withRouter(
   reduxForm({
     validate,
-    asyncValidate,
-    asyncChangeFields: ['email'],
+    // asyncValidate,
+    // asyncChangeFields: ['email'],
     form: 'value'
   })(connect(null, { addNewUsers })(SignupForm)));
