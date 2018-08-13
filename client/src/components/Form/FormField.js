@@ -10,7 +10,7 @@ const FormField = field => {
         autoComplete='off'
         type={field.type}
       />
-      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error: ''}</p>
+      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error : ''}</p>
     </div>
   );
 };
