@@ -7,33 +7,9 @@ export const fetchUserData = () => async dispatch => {
   dispatch({ type: types.FETCH_ALL_USERS_DATA, payload: data });
 };
 
-const requestNewUsersRegistration = () => ({
-  type: types.REQUEST_NEW_USERS_REGISTRATION,
-  payload: false
-});
-
-const receiveNewUsersRegistration = request => ({
-  type: types.RECEIVE_NEW_USERS_REGISTRATION,
-  payload: request
-});
-
-export const addNewUsers = (values, callback) => dispatch => {
-  dispatch(requestNewUsersRegistration());
-  const request = axios.post('/api/users', values).then(response => {
-    console.log(response);
-  }).catch(error => {
-    console.log(error);
-  });
-  dispatch(receiveNewUsersRegistration(request));
-  callback();
-};
-
-export const resetNewUsersRegistration = () => ({
-  type: types.RESET_NEW_USERS_REGISTRATION
-});
-
 const userAuthRequest = () => ({
-  type: types.USER_AUTH_REQUEST
+  type: types.USER_AUTH_REQUEST,
+  payload: true
 });
 
 const userAuthSuccess = data => ({
@@ -54,9 +30,13 @@ export const authUser = (email, password, callback) => dispatch => {
     returnSecureToken: true
   };
   axios.post('/api/auth', dataObj).then(response => {
-    console.log(response);
+    const { data } = response;
+    console.log(data);
+    dispatch(userAuthSuccess(data));
     callback();
   }).catch(error => {
-    console.log(error.response.statusText);
+    const { response: statusText } = error;
+    dispatch(userAuthFail(statusText));
+    callback();
   });
 };

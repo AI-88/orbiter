@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import LoginForm from './Form/LoginForm';
 import { connect } from 'react-redux';
-import { fetchUserData, resetNewUsersRegistration } from '../actions';
+import { fetchUserData } from '../actions';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
   componentDidMount() {
     this.props.fetchUserData();
-  };
-
-  componentWillUnmount() {
-    this.props.resetNewUsersRegistration();
   };
 
   render() {
@@ -33,4 +29,4 @@ function mapStateToProps({ users, newUsers }) {
   }
 };
 
-export default connect(mapStateToProps, { fetchUserData, resetNewUsersRegistration })(Home);
+export default connect(mapStateToProps, { fetchUserData })(Home);
