@@ -8,17 +8,10 @@ module.exports = app => {
     res.send(data);
   });
 
-  app.post('/api/users', (req, res) => {
-    const { email, password } = req.body;
-    const request = axios.post(keys.userSignupURL, {
-      email,
-      password,
-      returnSecureToken: true
-    }).then(response => {
-      res.send(response);
-    }).catch(error => {
-      const { response: { status }} = error;
-      res.sendStatus(status);
-    });
+  app.post('/api/auth', async (req, res) => {
+    const signupUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${keys.webApiKey}`;
+    const request = await axios.post(signupUrl, req.body);
+    const { data } = request;
+    res.send(data);
   });
 };

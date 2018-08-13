@@ -31,3 +31,32 @@ export const addNewUsers = (values, callback) => dispatch => {
 export const resetNewUsersRegistration = () => ({
   type: types.RESET_NEW_USERS_REGISTRATION
 });
+
+const userAuthRequest = () => ({
+  type: types.USER_AUTH_REQUEST
+});
+
+const userAuthSuccess = data => ({
+  type: types.USER_AUTH_SUCCESS,
+  payload: data
+});
+
+const userAuthFail = error => ({
+  type: types.USER_AUTH_FAIL,
+  payload: error
+});
+
+export const authUser = (email, password, callback) => dispatch => {
+  dispatch(userAuthRequest());
+  const dataObj = {
+    email,
+    password,
+    returnSecureToken: true
+  };
+  axios.post('/api/auth', dataObj).then(response => {
+    console.log(response);
+    callback();
+  }).catch(error => {
+    console.log(error.response.statusText);
+  });
+};

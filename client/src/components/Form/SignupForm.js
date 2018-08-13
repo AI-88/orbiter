@@ -4,7 +4,7 @@ import asyncValidate from './asyncValidate';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { addNewUsers } from '../../actions';
+import { authUser } from '../../actions';
 
 class SignupForm extends Component {
   state = {
@@ -15,8 +15,8 @@ class SignupForm extends Component {
     this.setState({ isSubmitting: false });
   };
 
-  formSubmit = values => {
-    return this.props.addNewUsers(values, () => {
+  formSubmit = ({ email, password }) => {
+    this.props.authUser(email, password, () => {
       this.props.history.push('/');
     });
   };
@@ -75,4 +75,4 @@ export default withRouter(
     // asyncValidate,
     // asyncChangeFields: ['email'],
     form: 'value'
-  })(connect(null, { addNewUsers })(SignupForm)));
+  })(connect(null, { authUser })(SignupForm)));
