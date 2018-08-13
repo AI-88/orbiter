@@ -30,7 +30,6 @@ export const authUser = (email, password, callback) => dispatch => {
     returnSecureToken: true
   };
   axios.post('/api/auth', dataObj).then(response => {
-    console.log(response);
     dispatch(userAuthSuccess(response));
     callback();
   }).catch(error => {
