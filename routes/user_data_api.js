@@ -7,10 +7,4 @@ module.exports = app => {
     const { data } = request;
     res.send(data);
   });
-
-  app.post('/api/users', async (req, res) => {
-    const request = await axios.post(keys.firebaseURL, req.body);
-    const { data } = request;
-    res.send(data);
-  });
 };

@@ -1,16 +1,16 @@
 import React from 'react';
 
 const FormField = field => {
-  const { meta: { asyncValidating, touched, error } } = field;
+  const { meta: { touched, error } } = field;
   return (
-    <div className={asyncValidating ? 'async-validating' : ''}>
+    <div>
       {field.label}
       <input
         {...field.input}
         autoComplete='off'
         type={field.type}
       />
-      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error: ''}</p>
+      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error : ''}</p>
     </div>
   );
 };

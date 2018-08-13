@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import asyncValidate from './asyncValidate';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { addNewUsers } from '../../actions';
+import { authUser } from '../../actions';
 
 class SignupForm extends Component {
-  state = {
-    isSubmitting: false
-  };
-
-  componentWillUnmount() {
-    this.setState({ isSubmitting: false });
-  };
-
-  formSubmit = values => {
-    return this.props.addNewUsers(values, () => {
+  formSubmit = ({ email, password }) => {
+    this.props.authUser(email, password, () => {
       this.props.history.push('/');
     });
   };
 
   render() {
-    const { handleSubmit, invalid } = this.props;
+    const { handleSubmit, userAuth: { isAuthenticating } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='username'
+          name='email'
           component={FormField}
-          label='Username'
+          label='Email'
+          type='email'
         />
         <Field
           name='password'
@@ -42,28 +34,11 @@ class SignupForm extends Component {
           label='Retype Password'
           type='password'
         />
-        <Field
-          name='email'
-          component={FormField}
-          label='Email'
-          type='email'
-        />
-        <Field
-          name='firstname'
-          component={FormField}
-          label='Firstname'
-        />
-        <Field
-          name='lastname'
-          component={FormField}
-          label='Lastname'
-        />
         <button
           type='submit'
-          disabled={invalid}
-          onClick={() => this.setState({ isSubmitting: true })}
+          disabled={isAuthenticating}
         >
-          {this.state.isSubmitting ? 'Submitting...' : 'Sign Up'}
+          {isAuthenticating ? 'Submitting...' : 'Sign Up'}
         </button>
       </form>
     );
@@ -72,31 +47,29 @@ class SignupForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.username) {
-    errors.username = 'Username Required!'
+  if (!value.email) {
+    errors.email = 'Email Required!'
   }
   if (!value.password) {
     errors.password = 'Password Required!'
   }
-  if (!value.email) {
-    errors.email = 'Email Required!'
-  }
-  if (!value.firstname) {
-    errors.firstname = 'Firstname Required!'
-  }
-  if (!value.lastname) {
-    errors.lastname = 'Lastname Required!'
-  }
   if (value.password !== value.passwordRe) {
     errors.passwordRe = 'Password must match!'
   }
+  if (value.password && value.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters!'
+  }
   return errors;
+};
+
+function mapStateToProps({ userAuth }) {
+  return {
+    userAuth
+  };
 };
 
 export default withRouter(
   reduxForm({
     validate,
-    asyncValidate,
-    asyncChangeFields: ['username'],
     form: 'value'
-  })(connect(null, { addNewUsers })(SignupForm)));
+  })(connect(mapStateToProps, { authUser })(SignupForm)));
