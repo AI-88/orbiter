@@ -14,8 +14,6 @@ class SignupForm extends Component {
 
   render() {
     const { handleSubmit, userAuth: { isAuthenticating } } = this.props;
-    const minLength = value => value && value.length < 6 ? 'Password must be at least 6 characters' : undefined;
-
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -29,7 +27,6 @@ class SignupForm extends Component {
           component={FormField}
           label='Password'
           type='password'
-          validate={minLength}
         />
         <Field
           name='passwordRe'
@@ -58,6 +55,9 @@ function validate(value) {
   }
   if (value.password !== value.passwordRe) {
     errors.passwordRe = 'Password must match!'
+  }
+  if (value.password && value.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters!'
   }
   return errors;
 };
