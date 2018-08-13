@@ -12,9 +12,9 @@ const userAuthRequest = () => ({
   payload: true
 });
 
-const userAuthSuccess = data => ({
+const userAuthSuccess = response => ({
   type: types.USER_AUTH_SUCCESS,
-  payload: data
+  payload: response
 });
 
 const userAuthFail = error => ({
@@ -30,13 +30,11 @@ export const authUser = (email, password, callback) => dispatch => {
     returnSecureToken: true
   };
   axios.post('/api/auth', dataObj).then(response => {
-    const { data } = response;
-    console.log(data);
-    dispatch(userAuthSuccess(data));
+    console.log(response);
+    dispatch(userAuthSuccess(response));
     callback();
   }).catch(error => {
     const { response: statusText } = error;
     dispatch(userAuthFail(statusText));
-    callback();
   });
 };
