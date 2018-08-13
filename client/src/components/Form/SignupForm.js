@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import asyncValidate from './asyncValidate';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { authUser } from '../../actions';
 
 class SignupForm extends Component {
-  state = {
-    isSubmitting: false
-  };
-
-  componentWillUnmount() {
-    this.setState({ isSubmitting: false });
-  };
-
   formSubmit = ({ email, password }) => {
     this.props.authUser(email, password, () => {
       this.props.history.push('/');
@@ -22,7 +13,7 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { handleSubmit, invalid } = this.props;
+    const { handleSubmit, userAuth: { isAuthenticating } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -45,10 +36,9 @@ class SignupForm extends Component {
         />
         <button
           type='submit'
-          disabled={invalid}
-          onClick={() => this.setState({ isSubmitting: true })}
+          disabled={isAuthenticating}
         >
-          {this.state.isSubmitting ? 'Submitting...' : 'Sign Up'}
+          {isAuthenticating ? 'Submitting...' : 'Sign Up'}
         </button>
       </form>
     );
@@ -69,10 +59,14 @@ function validate(value) {
   return errors;
 };
 
+function mapStateToProps({ userAuth }) {
+  return {
+    userAuth
+  };
+};
+
 export default withRouter(
   reduxForm({
     validate,
-    // asyncValidate,
-    // asyncChangeFields: ['email'],
     form: 'value'
-  })(connect(null, { authUser })(SignupForm)));
+  })(connect(mapStateToProps, { authUser })(SignupForm)));

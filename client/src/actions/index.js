@@ -34,7 +34,6 @@ export const authUser = (email, password, callback) => dispatch => {
     dispatch(userAuthSuccess(response));
     callback();
   }).catch(error => {
-    const { response: statusText } = error;
-    dispatch(userAuthFail(statusText));
+    dispatch(userAuthFail(error));
   });
 };
