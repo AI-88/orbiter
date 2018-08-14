@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
-    console.log(this.props.userSignup.data);
     return (
       <div>
         <h1>Home Route</h1>
