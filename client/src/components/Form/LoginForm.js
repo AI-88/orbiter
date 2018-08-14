@@ -14,9 +14,9 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='username'
+          name='email'
           component={FormField}
-          label='Username'
+          label='Email'
         />
         <Field
           name='password'
@@ -32,8 +32,8 @@ class LoginForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.username) {
-    errors.username = 'Username Required!'
+  if (!value.email) {
+    errors.email = 'Email Required!'
   }
   if (!value.password) {
     errors.password = 'Password Required!'
