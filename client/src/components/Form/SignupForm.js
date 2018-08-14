@@ -13,7 +13,7 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { handleSubmit, userAuth: { isAuthenticating } } = this.props;
+    const { handleSubmit, userSignup: { isAuthenticating } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -62,9 +62,9 @@ function validate(value) {
   return errors;
 };
 
-function mapStateToProps({ userAuth }) {
+function mapStateToProps({ userSignup }) {
   return {
-    userAuth
+    userSignup
   };
 };
 
