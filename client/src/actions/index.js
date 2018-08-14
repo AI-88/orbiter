@@ -36,3 +36,35 @@ export const signupUser = (email, password, callback) => dispatch => {
     dispatch(userSignupFail(error));
   });
 };
+
+const userLoginRequest = () => ({
+  type: types.USER_LOGIN_REQUEST,
+  payload: true
+});
+
+const userLoginSucess = response => ({
+  type: types.USER_LOGIN_SUCCESS,
+  payload: response
+});
+
+const userLoginFail = error => ({
+  type: types.USER_LOGIN_FAIL,
+  payload: error
+});
+
+export const loginUser = (email, password) => dispatch => {
+  dispatch(userLoginRequest());
+  const dataObj = {
+    email,
+    password,
+    returnSecureToken: true
+  };
+  axios.post('/api/login', dataObj).then(response => {
+    console.log(response);
+    const { data } = response;
+    dispatch(userLoginSucess(data));
+  }).catch(error => {
+    console.log(error);
+    dispatch(userLoginFail(error));
+  });
+};
