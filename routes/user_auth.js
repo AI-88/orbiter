@@ -2,7 +2,7 @@ const axios = require('axios');
 const keys = require('../config/keys');
 
 module.exports = app => {
-  app.post('/api/auth', async (req, res) => {
+  app.post('/api/signup', async (req, res) => {
     const signupUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${keys.webApiKey}`;
     const request = await axios.post(signupUrl, req.body);
     const { data } = request;
@@ -11,7 +11,6 @@ module.exports = app => {
 
   app.post('/api/login', async (req, res) => {
     const loginUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${keys.webApiKey}`;
-    console.log(req.body);
     const request = await axios.post(loginUrl, req.body);
     const { data } = request;
     res.send(data);

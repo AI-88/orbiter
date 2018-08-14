@@ -29,7 +29,7 @@ export const signupUser = (email, password, callback) => dispatch => {
     password,
     returnSecureToken: true
   };
-  axios.post('/api/auth', dataObj).then(response => {
+  axios.post('/api/signup', dataObj).then(response => {
     dispatch(userSignupSuccess(response));
     callback();
   }).catch(error => {
