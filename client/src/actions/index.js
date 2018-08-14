@@ -8,17 +8,17 @@ export const fetchUserData = () => async dispatch => {
 };
 
 const userAuthRequest = () => ({
-  type: types.USER_AUTH_REQUEST,
+  type: types.USER_SIGNUP_REQUEST,
   payload: true
 });
 
 const userAuthSuccess = response => ({
-  type: types.USER_AUTH_SUCCESS,
+  type: types.USER_SIGNUP_SUCCESS,
   payload: response
 });
 
 const userAuthFail = error => ({
-  type: types.USER_AUTH_FAIL,
+  type: types.USER_SIGNUP_FAIL,
   payload: error
 });
 

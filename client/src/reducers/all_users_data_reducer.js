@@ -6,8 +6,8 @@ const INITIAL_STATE = {
 };
 
 function usersDataReducer(state = INITIAL_STATE, action) {
-  switch (FETCH_ALL_USERS_DATA) {
-    case action.type:
+  switch (action.type) {
+    case FETCH_ALL_USERS_DATA:
       return {
         ...state,
         data: _.map(action.payload, (value, key) => {

@@ -1,4 +1,4 @@
-import { USER_AUTH_REQUEST, USER_AUTH_SUCCESS, USER_AUTH_FAIL } from '../actions/types';
+import { USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
   isAuthenticating: false,
@@ -7,18 +7,18 @@ const INITIAL_STATE = {
 
 function userAuthReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case USER_AUTH_REQUEST:
+    case USER_SIGNUP_REQUEST:
       return {
         ...state,
         isAuthenticating: action.payload
       };
-    case USER_AUTH_SUCCESS:
+    case USER_SIGNUP_SUCCESS:
       return {
         ...state,
         isAuthenticating: false,
         data: action.payload
       };
-    case USER_AUTH_FAIL:
+    case USER_SIGNUP_FAIL:
       return {
         ...state,
         isAuthenticating: false,
