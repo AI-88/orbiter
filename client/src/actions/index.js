@@ -7,32 +7,64 @@ export const fetchUserData = () => async dispatch => {
   dispatch({ type: types.FETCH_ALL_USERS_DATA, payload: data });
 };
 
-const userAuthRequest = () => ({
-  type: types.USER_AUTH_REQUEST,
+const userSignupRequest = () => ({
+  type: types.USER_SIGNUP_REQUEST,
   payload: true
 });
 
-const userAuthSuccess = response => ({
-  type: types.USER_AUTH_SUCCESS,
+const userSignupSuccess = response => ({
+  type: types.USER_SIGNUP_SUCCESS,
   payload: response
 });
 
-const userAuthFail = error => ({
-  type: types.USER_AUTH_FAIL,
+const userSignupFail = error => ({
+  type: types.USER_SIGNUP_FAIL,
   payload: error
 });
 
-export const authUser = (email, password, callback) => dispatch => {
-  dispatch(userAuthRequest());
+export const signupUser = (email, password, callback) => dispatch => {
+  dispatch(userSignupRequest());
   const dataObj = {
     email,
     password,
     returnSecureToken: true
   };
-  axios.post('/api/auth', dataObj).then(response => {
-    dispatch(userAuthSuccess(response));
+  axios.post('/api/signup', dataObj).then(response => {
+    dispatch(userSignupSuccess(response));
     callback();
   }).catch(error => {
-    dispatch(userAuthFail(error));
+    dispatch(userSignupFail(error));
+  });
+};
+
+const userLoginRequest = () => ({
+  type: types.USER_LOGIN_REQUEST,
+  payload: true
+});
+
+const userLoginSucess = response => ({
+  type: types.USER_LOGIN_SUCCESS,
+  payload: response
+});
+
+const userLoginFail = error => ({
+  type: types.USER_LOGIN_FAIL,
+  payload: error
+});
+
+export const loginUser = (email, password) => dispatch => {
+  dispatch(userLoginRequest());
+  const dataObj = {
+    email,
+    password,
+    returnSecureToken: true
+  };
+  axios.post('/api/login', dataObj).then(response => {
+    console.log(response);
+    const { data } = response;
+    dispatch(userLoginSucess(data));
+  }).catch(error => {
+    console.log(error);
+    dispatch(userLoginFail(error));
   });
 };

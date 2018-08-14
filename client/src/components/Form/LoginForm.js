@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions';
 
 class LoginForm extends Component {
-  formSubmit = value => {
-    console.log(value);
+  formSubmit = ({ email, password }) => {
+    this.props.loginUser(email, password);
   };
 
   render() {
@@ -12,9 +14,9 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='username'
+          name='email'
           component={FormField}
-          label='Username'
+          label='Email'
         />
         <Field
           name='password'
@@ -30,8 +32,8 @@ class LoginForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.username) {
-    errors.username = 'Username Required!'
+  if (!value.email) {
+    errors.email = 'Email Required!'
   }
   if (!value.password) {
     errors.password = 'Password Required!'
@@ -39,4 +41,7 @@ function validate(value) {
   return errors;
 };
 
-export default reduxForm({ validate, form: 'value' })(LoginForm);
+export default reduxForm({
+  validate,
+  form: 'value'
+})(connect(null, { loginUser })(LoginForm));
