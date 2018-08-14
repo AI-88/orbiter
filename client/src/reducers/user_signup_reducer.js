@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   data: {}
 };
 
-function userAuthReducer(state = INITIAL_STATE, action) {
+function userSignupReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case USER_SIGNUP_REQUEST:
       return {
@@ -29,4 +29,4 @@ function userAuthReducer(state = INITIAL_STATE, action) {
   }
 };
 
-export default userAuthReducer;
+export default userSignupReducer;
