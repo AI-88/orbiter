@@ -4,9 +4,16 @@ const keys = require('../config/keys');
 module.exports = app => {
   app.post('/api/signup', async (req, res) => {
     const signupUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${keys.webApiKey}`;
-    const request = await axios.post(signupUrl, req.body);
-    const { data } = request;
-    res.send(data);
+    try {
+      const request = await axios.post(signupUrl, req.body);
+      const { data } = request;
+      res.send(data);
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        res.send(data);
+      }
+    }
   });
 
   app.post('/api/login', async (req, res) => {

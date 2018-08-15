@@ -22,19 +22,23 @@ const userSignupFail = error => ({
   payload: error
 });
 
-export const signupUser = (email, password, callback) => dispatch => {
+export const signupUser = (email, password, callback) => async dispatch => {
   dispatch(userSignupRequest());
   const dataObj = {
     email,
     password,
     returnSecureToken: true
   };
-  axios.post('/api/signup', dataObj).then(response => {
-    dispatch(userSignupSuccess(response));
+  const request = await axios.post('/api/signup', dataObj);
+  const { data } = request;
+  if (data.error) {
+    console.log(data.error);
+    dispatch(userSignupFail(data.error));
+  } else {
+    console.log(data);
+    dispatch(userSignupSuccess(data));
     callback();
-  }).catch(error => {
-    dispatch(userSignupFail(error));
-  });
+  }
 };
 
 const userLoginRequest = () => ({
