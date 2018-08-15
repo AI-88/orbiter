@@ -18,8 +18,12 @@ module.exports = app => {
 
   app.post('/api/login', async (req, res) => {
     const loginUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${keys.webApiKey}`;
-    const request = await axios.post(loginUrl, req.body);
-    const { data } = request;
-    res.send(data);
+    try {
+      const request = await axios.post(loginUrl, req.body);
+      const { data } = request;
+      res.send(data);
+    } catch (error) {
+      console.log(error);
+    }
   });
 };
