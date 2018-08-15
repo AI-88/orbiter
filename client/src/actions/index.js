@@ -7,18 +7,18 @@ export const fetchUserData = () => async dispatch => {
   dispatch({ type: types.FETCH_ALL_USERS_DATA, payload: data });
 };
 
-const userSignupRequest = () => ({
-  type: types.USER_SIGNUP_REQUEST,
+const userAuthRequest = () => ({
+  type: types.USER_AUTH_REQUEST,
   payload: true
 });
 
-const userSignupSuccess = response => ({
-  type: types.USER_SIGNUP_SUCCESS,
+const userAuthSuccess = response => ({
+  type: types.USER_AUTH_SUCCESS,
   payload: response
 });
 
-const userSignupFail = error => ({
-  type: types.USER_SIGNUP_FAIL,
+const userAuthFail = error => ({
+  type: types.USER_AUTH_FAIL,
   payload: error
 });
 
@@ -27,7 +27,7 @@ export const userSignupReset = () => ({
 });
 
 export const signupUser = (email, password, callback) => async dispatch => {
-  dispatch(userSignupRequest());
+  dispatch(userAuthRequest());
   const dataObj = {
     email,
     password,
@@ -36,9 +36,9 @@ export const signupUser = (email, password, callback) => async dispatch => {
   const request = await axios.post('/api/signup', dataObj);
   const { data, data: { error } } = request;
   if (error) {
-    dispatch(userSignupFail(error));
+    dispatch(userAuthFail(error));
   } else {
-    dispatch(userSignupSuccess(data));
+    dispatch(userAuthSuccess(data));
     callback();
   }
 };
