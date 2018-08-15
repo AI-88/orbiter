@@ -10,7 +10,8 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { handleSubmit, userLogin: { isLogginIn, data} } = this.props;
+    const { handleSubmit, userLogin: { isLoggingIn, data} } = this.props;
+    console.log(data);
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -25,7 +26,7 @@ class LoginForm extends Component {
           type='password'
         />
         <p style={{ color: 'red', fontWeight: 'bold' }}>{data.errors ? data.message : ''}</p>
-        <button type='submit'>{isLogginIn ? 'Logging in...' : 'Login'}</button>
+        <button type='submit' disabled={isLoggingIn}>{isLoggingIn ? 'Logging in...' : 'Login'}</button>
       </form>
     );
   }
