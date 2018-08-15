@@ -3,12 +3,14 @@ import { reducer as formReducer } from 'redux-form';
 import allUsersDataReducer from './all_users_data_reducer';
 import userSignupReducer from './user_signup_reducer';
 import userLoginReducer from './user_login_reducer';
+import userAuthReducer from './user_auth_reducer';
 
 const appReducer = combineReducers({
   form: formReducer,
   users: allUsersDataReducer,
   userSignup: userSignupReducer,
-  userLogin: userLoginReducer
+  userLogin: userLoginReducer,
+  userAuth: userAuthReducer
 });
 
 const rootReducer = (state, action) => {
