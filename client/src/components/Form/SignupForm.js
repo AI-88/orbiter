@@ -3,13 +3,17 @@ import FormField from './FormField';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { signupUser } from '../../actions';
+import { signupUser, userSignupReset } from '../../actions';
 
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {
     this.props.signupUser(email, password, () => {
       this.props.history.push('/');
     });
+  };
+
+  componentWillUnmount() {
+    this.props.userSignupReset();
   };
 
   render() {
@@ -73,4 +77,4 @@ export default withRouter(
   reduxForm({
     validate,
     form: 'value'
-  })(connect(mapStateToProps, { signupUser })(SignupForm)));
+  })(connect(mapStateToProps, { signupUser, userSignupReset })(SignupForm)));

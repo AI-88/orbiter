@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import FormField from './FormField';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions';
+import { loginUser, userLoginReset } from '../../actions';
 
 class LoginForm extends Component {
   formSubmit = ({ email, password }) => {
     this.props.loginUser(email, password);
+  };
+
+  componentWillUnmount() {
+    this.props.userLoginReset();
   };
 
   render() {
@@ -52,4 +56,4 @@ function mapStateToProps({ userLogin }) {
 export default reduxForm({
   validate,
   form: 'value'
-})(connect(mapStateToProps, { loginUser })(LoginForm));
+})(connect(mapStateToProps, { loginUser, userLoginReset })(LoginForm));
