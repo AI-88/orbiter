@@ -10,7 +10,7 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, userLogin: { isLogginIn, data} } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -24,7 +24,8 @@ class LoginForm extends Component {
           label='Password'
           type='password'
         />
-        <button type='submit'>Login</button>
+        <p style={{ color: 'red', fontWeight: 'bold' }}>{data.errors ? data.message : ''}</p>
+        <button type='submit'>{isLogginIn ? 'Logging in...' : 'Login'}</button>
       </form>
     );
   }
@@ -41,7 +42,13 @@ function validate(value) {
   return errors;
 };
 
+function mapStateToProps({ userLogin }) {
+  return {
+    userLogin
+  };
+};
+
 export default reduxForm({
   validate,
   form: 'value'
-})(connect(null, { loginUser })(LoginForm));
+})(connect(mapStateToProps, { loginUser })(LoginForm));
