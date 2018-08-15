@@ -22,19 +22,25 @@ const userSignupFail = error => ({
   payload: error
 });
 
-export const signupUser = (email, password, callback) => dispatch => {
+export const userSignupReset = () => ({
+  type: types.USER_SIGNUP_RESET
+});
+
+export const signupUser = (email, password, callback) => async dispatch => {
   dispatch(userSignupRequest());
   const dataObj = {
     email,
     password,
     returnSecureToken: true
   };
-  axios.post('/api/signup', dataObj).then(response => {
-    dispatch(userSignupSuccess(response));
-    callback();
-  }).catch(error => {
+  const request = await axios.post('/api/signup', dataObj);
+  const { data, data: { error } } = request;
+  if (error) {
     dispatch(userSignupFail(error));
-  });
+  } else {
+    dispatch(userSignupSuccess(data));
+    callback();
+  }
 };
 
 const userLoginRequest = () => ({
@@ -52,19 +58,22 @@ const userLoginFail = error => ({
   payload: error
 });
 
-export const loginUser = (email, password) => dispatch => {
+export const userLoginReset = () => ({
+  type: types.USER_LOGIN_RESET
+});
+
+export const loginUser = (email, password) => async dispatch => {
   dispatch(userLoginRequest());
   const dataObj = {
     email,
     password,
     returnSecureToken: true
   };
-  axios.post('/api/login', dataObj).then(response => {
-    console.log(response);
-    const { data } = response;
-    dispatch(userLoginSucess(data));
-  }).catch(error => {
-    console.log(error);
+  const request = await axios.post('/api/login', dataObj);
+  const { data, data: { error } } = request;
+  if (error) {
     dispatch(userLoginFail(error));
-  });
+  } else {
+    dispatch(userLoginSucess(data));
+  }
 };

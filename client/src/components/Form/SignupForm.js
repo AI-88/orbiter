@@ -3,7 +3,7 @@ import FormField from './FormField';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { signupUser } from '../../actions';
+import { signupUser, userSignupReset } from '../../actions';
 
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {
@@ -12,8 +12,12 @@ class SignupForm extends Component {
     });
   };
 
+  componentWillUnmount() {
+    this.props.userSignupReset();
+  };
+
   render() {
-    const { handleSubmit, userSignup: { isAuthenticating } } = this.props;
+    const { handleSubmit, userSignup: { isAuthenticating, data } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -34,6 +38,7 @@ class SignupForm extends Component {
           label='Retype Password'
           type='password'
         />
+        <p style={{ color: 'red', textWeight: 'bold' }}>{data.errors ? 'Email Already Exists' : ''}</p>
         <button
           type='submit'
           disabled={isAuthenticating}
@@ -72,4 +77,4 @@ export default withRouter(
   reduxForm({
     validate,
     form: 'value'
-  })(connect(mapStateToProps, { signupUser })(SignupForm)));
+  })(connect(mapStateToProps, { signupUser, userSignupReset })(SignupForm)));
