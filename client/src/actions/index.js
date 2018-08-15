@@ -32,10 +32,8 @@ export const signupUser = (email, password, callback) => async dispatch => {
   const request = await axios.post('/api/signup', dataObj);
   const { data } = request;
   if (data.error) {
-    console.log(data.error);
     dispatch(userSignupFail(data.error));
   } else {
-    console.log(data);
     dispatch(userSignupSuccess(data));
     callback();
   }
@@ -56,19 +54,13 @@ const userLoginFail = error => ({
   payload: error
 });
 
-export const loginUser = (email, password) => dispatch => {
+export const loginUser = (email, password) => async dispatch => {
   dispatch(userLoginRequest());
   const dataObj = {
     email,
     password,
     returnSecureToken: true
   };
-  axios.post('/api/login', dataObj).then(response => {
-    console.log(response);
-    const { data } = response;
-    dispatch(userLoginSucess(data));
-  }).catch(error => {
-    console.log(error);
-    dispatch(userLoginFail(error));
-  });
+  const request = await axios.post('/api/login', dataObj);
+  console.log(request);
 };
