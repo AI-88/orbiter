@@ -30,9 +30,9 @@ export const signupUser = (email, password, callback) => async dispatch => {
     returnSecureToken: true
   };
   const request = await axios.post('/api/signup', dataObj);
-  const { data } = request;
-  if (data.error) {
-    dispatch(userSignupFail(data.error));
+  const { data, data: { error } } = request;
+  if (error) {
+    dispatch(userSignupFail(error));
   } else {
     dispatch(userSignupSuccess(data));
     callback();
@@ -62,9 +62,9 @@ export const loginUser = (email, password) => async dispatch => {
     returnSecureToken: true
   };
   const request = await axios.post('/api/login', dataObj);
-  const { data } = request;
-  if (data.error) {
-    dispatch(userLoginFail(data.error));
+  const { data, data: { error } } = request;
+  if (error) {
+    dispatch(userLoginFail(error));
   } else {
     dispatch(userLoginSucess(data));
   }
