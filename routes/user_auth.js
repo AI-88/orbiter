@@ -12,6 +12,8 @@ module.exports = app => {
       if (error.response) {
         const { data } = error.response;
         res.send(data);
+      } else {
+        res.end();
       }
     }
   });
@@ -23,7 +25,12 @@ module.exports = app => {
       const { data } = request;
       res.send(data);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { data } = error.response;
+        res.send(data);
+      } else {
+        res.end();
+      }
     }
   });
 };

@@ -62,5 +62,10 @@ export const loginUser = (email, password) => async dispatch => {
     returnSecureToken: true
   };
   const request = await axios.post('/api/login', dataObj);
-  console.log(request);
+  const { data } = request;
+  if (data.error) {
+    dispatch(userLoginFail(data.error));
+  } else {
+    dispatch(userLoginSucess(data));
+  }
 };
