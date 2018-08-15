@@ -13,7 +13,7 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { handleSubmit, userSignup: { isAuthenticating } } = this.props;
+    const { handleSubmit, userSignup: { isAuthenticating, data } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -34,6 +34,7 @@ class SignupForm extends Component {
           label='Retype Password'
           type='password'
         />
+        <p style={{ color: 'red', textWeight: 'bold' }}>{data.errors ? 'Email Already Exists' : ''}</p>
         <button
           type='submit'
           disabled={isAuthenticating}
