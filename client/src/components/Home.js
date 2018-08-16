@@ -1,28 +1,23 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import LoginForm from './Form/LoginForm';
+import requireAuth from './requireAuth';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUserData } from '../actions';
-import { Link } from 'react-router-dom';
+import { userSignout } from '../actions';
 
 class Home extends Component {
+  async handleSignout() {
+    await this.props.userSignout();
+    this.props.history.push('/');
+  };
+
   render() {
-    const { data } = this.props.userSignup;
     return (
       <div>
-        <h1>Home Route</h1>
-        <LoginForm />
-        <Link to='/signup'><button>To Signup</button></Link>
-        <p style={{ color: 'green', textWeight: 'bold' }}>{_.isEmpty(data) || data.errors ? '' : 'User has been succesully created!'}</p>
+        <h1>Welcome to Home Route</h1>
+        <button onClick={() => this.handleSignout()}>Signout</button>
       </div>
     );
   }
 };
 
-function mapStateToProps({ userSignup }) {
-  return {
-    userSignup
-  }
-};
-
-export default connect(mapStateToProps, { fetchUserData })(Home);
+export default requireAuth(withRouter(connect(null, { userSignout })(Home)));

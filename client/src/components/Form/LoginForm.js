@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { loginUser, userLoginReset } from '../../actions';
+import { loginUser } from '../../actions';
 
 class LoginForm extends Component {
   formSubmit = ({ email, password }) => {
-    this.props.loginUser(email, password);
-  };
-
-  componentWillUnmount() {
-    this.props.userLoginReset();
+    this.props.loginUser(email, password, () => {
+      this.props.history.push('/home');
+    });
   };
 
   render() {
-    const { handleSubmit, userLogin: { isLoggingIn, data} } = this.props;
-    console.log(data);
+    const { handleSubmit, userAuth: { errorMessage, isAuthenticating } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -29,8 +27,8 @@ class LoginForm extends Component {
           label='Password'
           type='password'
         />
-        <p style={{ color: 'red', fontWeight: 'bold' }}>{data.errors ? data.message : ''}</p>
-        <button type='submit' disabled={isLoggingIn}>{isLoggingIn ? 'Logging in...' : 'Login'}</button>
+        <p style={{ color: 'red' }}>{errorMessage ? errorMessage.message : ''}</p>
+        <button type='submit' disabled={isAuthenticating}>{isAuthenticating ? 'Logging in...' : 'Login'}</button>
       </form>
     );
   }
@@ -47,13 +45,13 @@ function validate(value) {
   return errors;
 };
 
-function mapStateToProps({ userLogin }) {
+function mapStateToProps({ userAuth }) {
   return {
-    userLogin
+    userAuth
   };
 };
 
-export default reduxForm({
+export default withRouter(reduxForm({
   validate,
   form: 'value'
-})(connect(mapStateToProps, { loginUser, userLoginReset })(LoginForm));
+})(connect(mapStateToProps, { loginUser })(LoginForm)));
