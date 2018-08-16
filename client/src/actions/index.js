@@ -22,8 +22,8 @@ const userAuthFail = error => ({
   payload: error
 });
 
-export const userSignupReset = () => ({
-  type: types.USER_SIGNUP_RESET
+export const userAuthReset = () => ({
+  type: types.USER_AUTH_RESET
 });
 
 export const signupUser = (email, password, callback) => async dispatch => {
@@ -58,22 +58,3 @@ export const loginUser = (email, password) => async dispatch => {
     dispatch(userAuthSuccess(data));
   }
 };
-
-const userLoginRequest = () => ({
-  type: types.USER_LOGIN_REQUEST,
-  payload: true
-});
-
-const userLoginSucess = response => ({
-  type: types.USER_LOGIN_SUCCESS,
-  payload: response
-});
-
-const userLoginFail = error => ({
-  type: types.USER_LOGIN_FAIL,
-  payload: error
-});
-
-export const userLoginReset = () => ({
-  type: types.USER_LOGIN_RESET
-});
