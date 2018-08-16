@@ -63,7 +63,7 @@ export const loginUser = (email, password, callback) => async dispatch => {
 };
 
 export const userSignout = () => {
-  localStorage.clearitem('token');
+  localStorage.removeItem('token');
   return {
     type: types.USER_AUTH_SIGNOUT,
     payload: ''
