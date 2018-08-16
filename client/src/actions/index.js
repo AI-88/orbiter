@@ -43,7 +43,7 @@ export const signupUser = (email, password, callback) => async dispatch => {
   }
 };
 
-export const loginUser = (email, password) => async dispatch => {
+export const loginUser = (email, password, callback) => async dispatch => {
   dispatch(userAuthRequest());
   const dataObj = {
     email,
@@ -56,5 +56,6 @@ export const loginUser = (email, password) => async dispatch => {
     dispatch(userAuthFail(error));
   } else {
     dispatch(userAuthSuccess(data));
+    callback();
   }
 };

@@ -8,7 +8,7 @@ import { signupUser } from '../../actions';
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {
     this.props.signupUser(email, password, () => {
-      this.props.history.push('/');
+      this.props.history.push('/home');
     });
   };
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
 
 class LoginForm extends Component {
   formSubmit = ({ email, password }) => {
-    this.props.loginUser(email, password);
+    this.props.loginUser(email, password, () => {
+      this.props.history.push('/home');
+    });
   };
 
   render() {
@@ -48,7 +51,7 @@ function mapStateToProps({ userAuth }) {
   };
 };
 
-export default reduxForm({
+export default withRouter(reduxForm({
   validate,
   form: 'value'
-})(connect(mapStateToProps, { loginUser })(LoginForm));
+})(connect(mapStateToProps, { loginUser })(LoginForm)));
