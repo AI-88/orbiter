@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { fetchUserData } from '../actions';
 import { Link } from 'react-router-dom';
 
-class Home extends Component {
+class Landing extends Component {
   render() {
     return (
       <div>
-        <h1>Home Route</h1>
+        <h1>Landing Route</h1>
         <LoginForm />
         <Link to='/signup'><button>To Signup</button></Link>
       </div>
@@ -22,4 +22,4 @@ function mapStateToProps({ userAuth }) {
   }
 };
 
-export default connect(mapStateToProps, { fetchUserData })(Home);
+export default connect(mapStateToProps, { fetchUserData })(Landing);
