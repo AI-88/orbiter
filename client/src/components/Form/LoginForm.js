@@ -27,7 +27,7 @@ class LoginForm extends Component {
           label='Password'
           type='password'
         />
-        <p style={{ color: 'red' }}>{errorMessage.message}</p>
+        <p style={{ color: 'red' }}>{errorMessage ? errorMessage.message : ''}</p>
         <button type='submit' disabled={isAuthenticating}>{isAuthenticating ? 'Logging in...' : 'Login'}</button>
       </form>
     );

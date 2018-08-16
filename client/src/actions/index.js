@@ -39,6 +39,7 @@ export const signupUser = (email, password, callback) => async dispatch => {
     dispatch(userAuthFail(error));
   } else {
     dispatch(userAuthSuccess(data));
+    localStorage.setItem('token', data);
     callback();
   }
 };
@@ -56,6 +57,7 @@ export const loginUser = (email, password, callback) => async dispatch => {
     dispatch(userAuthFail(error));
   } else {
     dispatch(userAuthSuccess(data));
+    localStorage.setItem('token', data);
     callback();
   }
 };
