@@ -34,7 +34,7 @@ class SignupForm extends Component {
           label='Retype Password'
           type='password'
         />
-        <p style={{ color: 'red', textWeight: 'bold' }}>{errorMessage.message}</p>
+        <p style={{ color: 'red', textWeight: 'bold' }}>{errorMessage ? errorMessage.message : ''}</p>
         <button
           type='submit'
           disabled={isAuthenticating}
