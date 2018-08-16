@@ -13,7 +13,7 @@ export default ChildComponent => {
       this.shouldNavigateAway();
     }
     shouldNavigateAway() {
-      if (!this.props.authenticated) {
+      if (!this.props.userAuth.authenticated) {
         this.props.history.push('/');
       }
     }
@@ -21,8 +21,12 @@ export default ChildComponent => {
       return <ChildComponent {...this.props} />;
     }
   }
+
   function mapStateToProps({ userAuth }) {
-    return { userAuth: authenticated };
-  }
-  return withRouter(connect(mapStateToProps)(ComposedComponent));
+    return {
+      userAuth
+    }
+  };
+
+  return withRouter(connect(mapStateToProps, null)(ComposedComponent));
 };
