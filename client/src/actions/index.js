@@ -43,6 +43,22 @@ export const signupUser = (email, password, callback) => async dispatch => {
   }
 };
 
+export const loginUser = (email, password) => async dispatch => {
+  dispatch(userAuthRequest());
+  const dataObj = {
+    email,
+    password,
+    returnSecureToken: true
+  };
+  const request = await axios.post('/api/login', dataObj);
+  const { data, data: { error } } = request;
+  if (error) {
+    dispatch(userAuthFail(error));
+  } else {
+    dispatch(userAuthSuccess(data));
+  }
+};
+
 const userLoginRequest = () => ({
   type: types.USER_LOGIN_REQUEST,
   payload: true
@@ -61,19 +77,3 @@ const userLoginFail = error => ({
 export const userLoginReset = () => ({
   type: types.USER_LOGIN_RESET
 });
-
-export const loginUser = (email, password) => async dispatch => {
-  dispatch(userLoginRequest());
-  const dataObj = {
-    email,
-    password,
-    returnSecureToken: true
-  };
-  const request = await axios.post('/api/login', dataObj);
-  const { data, data: { error } } = request;
-  if (error) {
-    dispatch(userLoginFail(error));
-  } else {
-    dispatch(userLoginSucess(data));
-  }
-};
