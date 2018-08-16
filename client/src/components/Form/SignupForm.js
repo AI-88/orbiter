@@ -3,7 +3,7 @@ import FormField from './FormField';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { signupUser, userSignupReset } from '../../actions';
+import { signupUser } from '../../actions';
 
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {
@@ -12,12 +12,8 @@ class SignupForm extends Component {
     });
   };
 
-  componentWillUnmount() {
-    this.props.userSignupReset();
-  };
-
   render() {
-    const { handleSubmit, userSignup: { isAuthenticating, data } } = this.props;
+    const { handleSubmit, userAuth: { errorMessage, isAuthenticating } } = this.props;
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
@@ -38,7 +34,7 @@ class SignupForm extends Component {
           label='Retype Password'
           type='password'
         />
-        <p style={{ color: 'red', textWeight: 'bold' }}>{data.errors ? 'Email Already Exists' : ''}</p>
+        <p style={{ color: 'red', textWeight: 'bold' }}>{errorMessage.message}</p>
         <button
           type='submit'
           disabled={isAuthenticating}
@@ -67,9 +63,9 @@ function validate(value) {
   return errors;
 };
 
-function mapStateToProps({ userSignup }) {
+function mapStateToProps({ userAuth }) {
   return {
-    userSignup
+    userAuth
   };
 };
 
@@ -77,4 +73,4 @@ export default withRouter(
   reduxForm({
     validate,
     form: 'value'
-  })(connect(mapStateToProps, { signupUser, userSignupReset })(SignupForm)));
+  })(connect(mapStateToProps, { signupUser })(SignupForm)));
