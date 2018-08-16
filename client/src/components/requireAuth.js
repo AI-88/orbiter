@@ -13,7 +13,8 @@ export default ChildComponent => {
       this.shouldNavigateAway();
     }
     shouldNavigateAway() {
-      if (!this.props.userAuth.authenticated) {
+      const { authenticated } = this.props.userAuth;
+      if (!authenticated) {
         this.props.history.push('/');
       }
     }
