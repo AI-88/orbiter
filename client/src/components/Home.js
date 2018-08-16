@@ -3,7 +3,9 @@ import requireAuth from './requireAuth';
 
 const Home = () => {
   return (
-    <h1>Welcome to Home Route</h1>
+    <div>
+      <h1>Welcome to Home Route</h1>
+    </div>
   );
 };
 

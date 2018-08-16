@@ -61,3 +61,11 @@ export const loginUser = (email, password, callback) => async dispatch => {
     callback();
   }
 };
+
+export const userSignout = () => {
+  localStorage.clearitem('token');
+  return {
+    type: types.USER_AUTH_SIGNOUT,
+    payload: ''
+  };
+};
