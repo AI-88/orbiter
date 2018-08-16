@@ -17,11 +17,12 @@ export default ChildComponent => {
       if (!authenticated) {
         this.props.history.push('/');
       }
-    }
+    };
+
     render() {
       return <ChildComponent {...this.props} />;
     }
-  }
+  };
 
   function mapStateToProps({ userAuth }) {
     return {
