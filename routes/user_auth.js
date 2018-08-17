@@ -9,12 +9,8 @@ module.exports = app => {
       const { data } = request;
       res.send(data);
     } catch ({ response }) {
-      if (response) {
-        const { data } = response;
-        res.send(data);
-      } else {
-        res.end();
-      }
+      const { data } = response;
+      res.send(data);
     }
   });
 
@@ -25,12 +21,8 @@ module.exports = app => {
       const { data } = request;
       res.send(data);
     } catch ({ response }) {
-      if (response) {
-        const { data } = response;
-        res.send(data);
-      } else {
-        res.end();
-      }
+      const { data } = response;
+      res.send(data);
     }
   });
 };
