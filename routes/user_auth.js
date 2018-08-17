@@ -8,9 +8,9 @@ module.exports = app => {
       const request = await axios.post(signupUrl, req.body);
       const { data } = request;
       res.send(data);
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
+    } catch ({ response }) {
+      if (response) {
+        const { data } = response;
         res.send(data);
       } else {
         res.end();
@@ -24,9 +24,9 @@ module.exports = app => {
       const request = await axios.post(loginUrl, req.body);
       const { data } = request;
       res.send(data);
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
+    } catch ({ response }) {
+      if (response) {
+        const { data } = response;
         res.send(data);
       } else {
         res.end();
