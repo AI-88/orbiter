@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { signupUser } from '../../actions';
+import { Button} from '@material-ui/core';
 
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {
@@ -35,12 +36,22 @@ class SignupForm extends Component {
           type='password'
         />
         <p style={{ color: 'red', textWeight: 'bold' }}>{errorMessage ? errorMessage.message : ''}</p>
-        <button
+        <Button
+          variant='contained'
+          color='primary'
           type='submit'
           disabled={isAuthenticating}
         >
           {isAuthenticating ? 'Submitting...' : 'Sign Up'}
-        </button>
+        </Button>
+        <Button
+          component={Link}
+          to='/'
+          variant='contained'
+          color='secondary'
+        >
+          Back
+        </Button>
       </form>
     );
   }

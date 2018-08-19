@@ -11,14 +11,6 @@ class Landing extends Component {
       <div>
         <h1>Landing Route</h1>
         <LoginForm />
-        <Button
-          component={Link}
-          to='/signup'
-          variant='contained'
-          color='primary'
-        >
-          Signup
-        </Button>
       </div>
     );
   }

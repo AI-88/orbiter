@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
@@ -36,6 +36,14 @@ class LoginForm extends Component {
           disabled={isAuthenticating}
         >
           {isAuthenticating ? 'Logging in...' : 'Login'}
+        </Button>
+        <Button
+          component={Link}
+          to='/signup'
+          variant='contained'
+          color='primary'
+        >
+          Signup
         </Button>
       </form>
     );
