@@ -18,12 +18,12 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='email'
+          name='loginEmail'
           component={FormField}
           label='Email'
         />
         <Field
-          name='password'
+          name='loginPassword'
           component={FormField}
           label='Password'
           type='password'
@@ -52,11 +52,11 @@ class LoginForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.email) {
-    errors.email = 'Email Required!'
+  if (!value.loginEmail) {
+    errors.loginEmail = 'Email Required!'
   }
-  if (!value.password) {
-    errors.password = 'Password Required!'
+  if (!value.loginPassword) {
+    errors.loginPassword = 'Password Required!'
   }
   return errors;
 };
@@ -67,7 +67,8 @@ function mapStateToProps({ userAuth }) {
   };
 };
 
-export default withRouter(reduxForm({
-  validate,
-  form: 'value'
+export default withRouter(
+  reduxForm({
+    validate,
+    form: 'value'
 })(connect(mapStateToProps, { loginUser })(LoginForm)));

@@ -8,10 +8,11 @@ const FormField = field => {
       <TextField
         {...field.input}
         label={field.label}
-        autoComplete='off'
         type={field.type}
-        error={touched ? error : ''}
+        autoComplete='off'
+        // error={touched ? true : false}
       />
+      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error : ''}</p>
     </div>
   );
 };

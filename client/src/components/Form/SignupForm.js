@@ -18,19 +18,19 @@ class SignupForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='email'
+          name='signupEmail'
           component={FormField}
           label='Email'
           type='email'
         />
         <Field
-          name='password'
+          name='signupPassword'
           component={FormField}
           label='Password'
           type='password'
         />
         <Field
-          name='passwordRe'
+          name='signupPasswordRe'
           component={FormField}
           label='Retype Password'
           type='password'
@@ -59,17 +59,17 @@ class SignupForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.email) {
-    errors.email = 'Email Required!'
+  if (!value.signupEmail) {
+    errors.signupEmail = 'Email Required!'
   }
-  if (!value.password) {
-    errors.password = 'Password Required!'
+  if (!value.signupPassword) {
+    errors.signupPassword = 'Password Required!'
   }
-  if (value.password !== value.passwordRe) {
-    errors.passwordRe = 'Password must match!'
+  if (value.signupPassword !== value.signupPasswordRe) {
+    errors.signupPasswordRe = 'Password must match!'
   }
-  if (value.password && value.password.length < 6) {
-    errors.password = 'Password must be at least 6 characters!'
+  if (value.signupPassword && value.signupPassword.length < 6) {
+    errors.signupPassword = 'Password must be at least 6 characters!'
   }
   return errors;
 };

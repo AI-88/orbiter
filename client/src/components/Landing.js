@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import LoginForm from './Form/LoginForm';
 import { connect } from 'react-redux';
 import { fetchUserData } from '../actions';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 
 class Landing extends Component {
   render() {
