@@ -7,8 +7,8 @@ import { signupUser } from '../../actions';
 import { Button } from '@material-ui/core';
 
 class SignupForm extends Component {
-  formSubmit = ({ email, password }) => {
-    this.props.signupUser(email, password, () => {
+  formSubmit = ({ signupEmail, signupPassword }) => {
+    this.props.signupUser(signupEmail, signupPassword, () => {
       this.props.history.push('/home');
     });
   };
@@ -52,6 +52,7 @@ class SignupForm extends Component {
         >
           Back
         </Button>
+        <p>Already have an account? <Link to='/login'>Log in!</Link></p>
       </form>
     );
   }

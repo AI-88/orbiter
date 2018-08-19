@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Landing from './Landing';
+import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
 
@@ -11,6 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route exact path='/home' component={Home} />
+          <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
         </Switch>
       </BrowserRouter>

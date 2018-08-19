@@ -7,8 +7,8 @@ import { loginUser } from '../../actions';
 import { Button } from '@material-ui/core';
 
 class LoginForm extends Component {
-  formSubmit = ({ email, password }) => {
-    this.props.loginUser(email, password, () => {
+  formSubmit = ({ loginEmail, loginPassword }) => {
+    this.props.loginUser(loginEmail, loginPassword, () => {
       this.props.history.push('/home');
     });
   };
@@ -31,7 +31,7 @@ class LoginForm extends Component {
         <p style={{ color: 'red' }}>{errorMessage ? errorMessage.message : ''}</p>
         <Button
           variant='contained'
-          color='secondary'
+          color='primary'
           type='submit'
           disabled={isAuthenticating}
         >
@@ -39,12 +39,13 @@ class LoginForm extends Component {
         </Button>
         <Button
           component={Link}
-          to='/signup'
+          to='/'
           variant='contained'
-          color='primary'
+          color='secondary'
         >
-          Signup
+          back
         </Button>
+        <p>Don't have an account? <Link to='/signup'>Sign up!</Link></p>
       </form>
     );
   }

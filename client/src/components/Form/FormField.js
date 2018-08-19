@@ -10,7 +10,6 @@ const FormField = field => {
         label={field.label}
         type={field.type}
         autoComplete='off'
-        // error={touched ? true : false}
       />
       <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error : ''}</p>
     </div>
