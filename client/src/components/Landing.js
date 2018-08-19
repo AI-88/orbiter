@@ -3,6 +3,7 @@ import LoginForm from './Form/LoginForm';
 import { connect } from 'react-redux';
 import { fetchUserData } from '../actions';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 class Landing extends Component {
   render() {
@@ -10,7 +11,14 @@ class Landing extends Component {
       <div>
         <h1>Landing Route</h1>
         <LoginForm />
-        <Link to='/signup'><button>To Signup</button></Link>
+        <Button
+          component={Link}
+          to='/signup'
+          variant='contained'
+          color='primary'
+        >
+          Signup
+        </Button>
       </div>
     );
   }

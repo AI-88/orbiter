@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
+import { Button} from '@material-ui/core';
 
 class LoginForm extends Component {
   formSubmit = ({ email, password }) => {
@@ -28,7 +29,14 @@ class LoginForm extends Component {
           type='password'
         />
         <p style={{ color: 'red' }}>{errorMessage ? errorMessage.message : ''}</p>
-        <button type='submit' disabled={isAuthenticating}>{isAuthenticating ? 'Logging in...' : 'Login'}</button>
+        <Button
+          variant='contained'
+          color='secondary'
+          type='submit'
+          disabled={isAuthenticating}
+        >
+          {isAuthenticating ? 'Logging in...' : 'Login'}
+        </Button>
       </form>
     );
   }
