@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { signupUser } from '../../actions';
-import { Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 class SignupForm extends Component {
   formSubmit = ({ email, password }) => {

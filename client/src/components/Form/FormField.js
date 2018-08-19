@@ -1,16 +1,17 @@
 import React from 'react';
+import { TextField } from '@material-ui/core';
 
 const FormField = field => {
   const { meta: { touched, error } } = field;
   return (
     <div>
-      {field.label}
-      <input
+      <TextField
         {...field.input}
+        label={field.label}
         autoComplete='off'
         type={field.type}
+        error={touched ? error : ''}
       />
-      <p style={{ fontSize: '12px', color: 'red' }}>{touched ? error : ''}</p>
     </div>
   );
 };
