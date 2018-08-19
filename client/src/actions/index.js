@@ -22,10 +22,6 @@ const userAuthFail = error => ({
   payload: error
 });
 
-export const userAuthReset = () => ({
-  type: types.USER_AUTH_RESET
-});
-
 export const signupUser = (email, password, callback) => async dispatch => {
   dispatch(userAuthRequest());
   const dataObj = {

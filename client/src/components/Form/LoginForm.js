@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
+import { Button } from '@material-ui/core';
 
 class LoginForm extends Component {
-  formSubmit = ({ email, password }) => {
-    this.props.loginUser(email, password, () => {
+  formSubmit = ({ loginEmail, loginPassword }) => {
+    this.props.loginUser(loginEmail, loginPassword, () => {
       this.props.history.push('/home');
     });
   };
@@ -17,18 +18,34 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
-          name='email'
+          name='loginEmail'
           component={FormField}
           label='Email'
         />
         <Field
-          name='password'
+          name='loginPassword'
           component={FormField}
           label='Password'
           type='password'
         />
         <p style={{ color: 'red' }}>{errorMessage ? errorMessage.message : ''}</p>
-        <button type='submit' disabled={isAuthenticating}>{isAuthenticating ? 'Logging in...' : 'Login'}</button>
+        <Button
+          variant='contained'
+          color='primary'
+          type='submit'
+          disabled={isAuthenticating}
+        >
+          {isAuthenticating ? 'Logging in...' : 'Login'}
+        </Button>
+        <Button
+          component={Link}
+          to='/'
+          variant='contained'
+          color='secondary'
+        >
+          back
+        </Button>
+        <p>Don't have an account? <Link to='/signup'>Sign up!</Link></p>
       </form>
     );
   }
@@ -36,11 +53,11 @@ class LoginForm extends Component {
 
 function validate(value) {
   const errors = {};
-  if (!value.email) {
-    errors.email = 'Email Required!'
+  if (!value.loginEmail) {
+    errors.loginEmail = 'Email Required!'
   }
-  if (!value.password) {
-    errors.password = 'Password Required!'
+  if (!value.loginPassword) {
+    errors.loginPassword = 'Password Required!'
   }
   return errors;
 };
@@ -51,7 +68,8 @@ function mapStateToProps({ userAuth }) {
   };
 };
 
-export default withRouter(reduxForm({
-  validate,
-  form: 'value'
+export default withRouter(
+  reduxForm({
+    validate,
+    form: 'value'
 })(connect(mapStateToProps, { loginUser })(LoginForm)));

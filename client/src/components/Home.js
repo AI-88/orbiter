@@ -3,6 +3,7 @@ import requireAuth from './requireAuth';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userSignout } from '../actions';
+import { Button } from '@material-ui/core';
 
 class Home extends Component {
   async handleSignout() {
@@ -14,7 +15,13 @@ class Home extends Component {
     return (
       <div>
         <h1>Welcome to Home Route</h1>
-        <button onClick={() => this.handleSignout()}>Signout</button>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={() => this.handleSignout()}
+        >
+          Signout
+        </Button>
       </div>
     );
   }
