@@ -12,9 +12,11 @@ class Home extends Component {
   };
 
   render() {
+    const { authenticated: { email } } = this.props.userAuth
+
     return (
       <div>
-        <h1>Welcome to Home Route</h1>
+        <h1>Welcome, {email}</h1>
         <Button
           variant='contained'
           color='secondary'
@@ -27,4 +29,10 @@ class Home extends Component {
   }
 };
 
-export default requireAuth(withRouter(connect(null, { userSignout })(Home)));
+function mapStateToProps({ userAuth }) {
+  return {
+    userAuth
+  }
+}
+
+export default requireAuth(withRouter(connect(mapStateToProps, { userSignout })(Home)));
