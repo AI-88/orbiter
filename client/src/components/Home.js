@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import requireAuth from './requireAuth';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userSignout } from '../actions';
