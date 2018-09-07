@@ -35,4 +35,4 @@ function mapStateToProps({ userAuth }) {
   }
 }
 
-export default requireAuth(withRouter(connect(mapStateToProps, { userSignout })(Home)));
+export default withRouter(connect(mapStateToProps, { userSignout })(Home));
